@@ -1,22 +1,26 @@
 import React from 'react';
+import Autocomplete from '@mui/material/Autocomplete'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
+import listImg from '../../img/list-img.png';
 import MenuIcon from '@mui/icons-material/Menu';
-import listImg from '../../img/list-img.png'
 
 function Header(props) {
 
-    const [sideBar, setSideBar] = React.useState(false)
+    const toggleSidebar = () => {
+        props.action(!props.state);
+    }
 
     return (
         <Box sx={{ flexGrow: 1}}>
             <AppBar sx={{backgroundColor: '#FFE794'}} position="static">
                 <Toolbar sx={{display: 'flex', justifyContent: 'space-between'}}>
                     <IconButton
+                        onClick={() => toggleSidebar()}
                         size="large"
                         edge="start"
                         color="inherit"

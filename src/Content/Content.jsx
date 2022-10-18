@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar/Sidebar";
 import Divider from "@mui/material/Divider";
 import Project from "../components/Project/Project";
 
-function Content() {
+function Content(props) {
     return (
         <Box
             sx={{
@@ -12,7 +12,7 @@ function Content() {
                 display: 'flex'
             }}
         >
-            <Sidebar />
+            <Sidebar state={props.state}/>
             <Divider sx={{width: '1px', marginTop: '5px', backgroundColor: '#000', opacity: 0.2}}/>
             <Project />
         </Box>
