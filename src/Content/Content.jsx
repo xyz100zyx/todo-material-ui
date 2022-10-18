@@ -9,11 +9,12 @@ function Content(props) {
         <Box
             sx={{
                 minHeight: '800px',
-                display: 'flex'
+                display: 'flex',
+                width: '100%',
             }}
         >
             <Sidebar state={props.state}/>
-            <Divider sx={{width: '1px', marginTop: '5px', backgroundColor: '#000', opacity: 0.2}}/>
+            {props.state && <Divider sx={{width: '1px', marginTop: '5px', backgroundColor: '#000', opacity: 0.2}}/>}
             <Project />
         </Box>
     );

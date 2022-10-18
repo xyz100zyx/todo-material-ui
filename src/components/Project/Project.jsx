@@ -66,7 +66,7 @@ function Project(props) {
           marginTop: "5px",
         }}
         width={"100%"}
-        maxWidth={"1139px"}
+        maxWidth={"1440px"}
       >
         <Typography
           variant={"h4"}
