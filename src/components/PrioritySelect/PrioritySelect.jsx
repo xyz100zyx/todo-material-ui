@@ -6,8 +6,8 @@ const styleWrapper = {
   border: 'none'
 };
 
-const PrioritySelect = () => {
-  const [priority, setPriority] = React.useState("");
+const PrioritySelect = (props) => {
+  const [priority, setPriority] = React.useState(props.priority);
 
   return (
     <FormControl fullWidth sx={styleWrapper}>
@@ -15,16 +15,16 @@ const PrioritySelect = () => {
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
-        value={priority}
+        value={priority.toString()}
         label="Chose a priority"
         onChange={(e) => setPriority(e.target.value)}
         sx={{
             
         }}
       >
-        <MenuItem value={10}>High</MenuItem>
-        <MenuItem value={20}>Middle</MenuItem>
-        <MenuItem value={30}>Low</MenuItem>
+        <MenuItem value={'High'}>High</MenuItem>
+        <MenuItem value={'Middle'}>Middle</MenuItem>
+        <MenuItem value={'Low'}>Low</MenuItem>
       </Select>
     </FormControl>
   );

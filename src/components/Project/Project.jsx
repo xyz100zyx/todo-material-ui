@@ -12,18 +12,18 @@ function Project(props) {
 
   const initialTasks = [
     {
-      priority: 1,
+      priority: 'High',
       timeLost: [21, "January", 2023],
       description: "sdhfbsjkdfnsdknfsgdfngm,dsdg",
     },
     {
-      priority: 2,
-      timeLost: [21, "January", 2023],
+      priority: "Middle",
+      timeLost: [22, "January", 2023],
       description: "sdhfbsjkdfnsdknfsgdfngm,dsdg",
     },
     {
-      priority: 3,
-      timeLost: [21, "January", 2023],
+      priority: "Low",
+      timeLost: [22, "January", 2023],
       description: "sdhfbsjkdfnsdknfsgdfngm,dsdg",
     },
   ];
@@ -31,29 +31,15 @@ function Project(props) {
   const [tasks, setTasks] = React.useState(initialTasks);
   const [clickedTask, setClickedTask] = React.useState(null);
 
-  const priorityToString = (priority) => {
-    switch (priority) {
-      case 1:
-        return "High";
-        break;
-      case 2:
-        return "Medium";
-        break;
-      case 3:
-        return "Low";
-        break;
-    }
-  };
-
   const getPriorityColor = (priority) => {
     switch (priority) {
-      case 1:
+      case 'High':
         return "#FAA136";
         break;
-      case 2:
+      case 'Middle':
         return "#FFB760";
         break;
-      case 3:
+      case 'Low':
         return "#FFD8A9";
         break;
     }
@@ -112,7 +98,7 @@ function Project(props) {
                     marginTop: 0,
                   }}
                   style={{ backgroundColor: getPriorityColor(task.priority) }}
-                  primary={priorityToString(task.priority)}
+                  primary={task.priority}
                 />
                 <ListItemText primary={task.description} />
               </ListItem>

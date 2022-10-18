@@ -21,6 +21,9 @@ const style = {
 };
 
 const ModalDetailsTask = (props) => {
+
+  const timeLost = props.clickedTask.timeLost;
+
   return (
     <Modal
       open={props.state}
@@ -32,8 +35,8 @@ const ModalDetailsTask = (props) => {
         <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: 'center'}}>
             Details
         </Typography>
-        <TextInput minHeight={'auto'} label={'Time finish point'} placeholder={'dd/mm/yy'}/>
-        <PrioritySelect />
+        <TextInput minHeight={'auto'} label={'Time finish point'} placeholder={`${timeLost[0]} ${timeLost[1]} ${timeLost[2]}`}/>
+        <PrioritySelect priority={props.clickedTask.priority} />
         <TextInput mt={18} minHeight={'130px'} label={'Task description'} placeholder={props.clickedTask.description}/>
         <ButtonModal text={'Save'} />
         <ButtonModal text={'Done'} />
