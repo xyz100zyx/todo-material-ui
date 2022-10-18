@@ -6,9 +6,11 @@ import TasksContainer from "../TasksContainer/TasksContainer";
 import { ListItem, ListItemText } from "@mui/material";
 import List from "@mui/material/List";
 import ModalDetailsTask from "../ModalDetailsTask/ModalDetailsTask";
+import ModalAddTask from "../ModalAddTask/ModalAddTask";
 
 function Project(props) {
   const [modalAdd, setModalAdd] = React.useState(false);
+  const [modalNew, setModalNew] = React.useState(false);
 
   const initialTasks = [
     {
@@ -50,9 +52,14 @@ function Project(props) {
     setModalAdd(!modalAdd);
   }
 
+  const onAddTaskClick = () => {
+    setModalNew(!modalNew)
+  }
+
   return (
     <>
       {modalAdd && <ModalDetailsTask clickedTask={clickedTask} action={setModalAdd} state={modalAdd} />}
+      {modalNew && <ModalAddTask action={setModalNew} state={modalNew} />}
       <Box
         sx={{
           backgroundColor: "#FFE1BD",
@@ -69,7 +76,7 @@ function Project(props) {
         >
           Test Project
         </Typography>
-        <Button sx={{ marginTop: "50px", padding: "10px 15px" }}>
+        <Button onClick={()=>onAddTaskClick()} sx={{ marginTop: "50px", padding: "10px 15px" }}>
           Add new task
         </Button>
         <TasksContainer>

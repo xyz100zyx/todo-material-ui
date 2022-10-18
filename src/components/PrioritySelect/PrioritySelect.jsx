@@ -25,6 +25,7 @@ const PrioritySelect = (props) => {
         <MenuItem value={'High'}>High</MenuItem>
         <MenuItem value={'Middle'}>Middle</MenuItem>
         <MenuItem value={'Low'}>Low</MenuItem>
+        <MenuItem value={props.priority}>{props.priority}</MenuItem>
       </Select>
     </FormControl>
   );
