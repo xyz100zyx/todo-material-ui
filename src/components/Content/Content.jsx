@@ -1,8 +1,8 @@
 import React from 'react';
 import {Box} from '@mui/material';
-import Sidebar from "../components/Sidebar/Sidebar";
+import Sidebar from "../Sidebar/Sidebar";
 import Divider from "@mui/material/Divider";
-import Project from "../components/Project/Project";
+import Project from "../Project/Project";
 
 function Content(props) {
     return (

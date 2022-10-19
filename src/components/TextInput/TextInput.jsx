@@ -10,7 +10,7 @@ const TextInput = (props) => {
 
   return (
     <TextField
-      placeholder={'Input the description of task'}
+      placeholder={props.placeholder}
       id="standard-basic"
       label={props.label}
       value={value}
