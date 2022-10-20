@@ -2,7 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import TextInput from "../TextInput/TextInput";
 
-const RegisterForm = () => {
+const LoginForm = () => {
   return (
     <Box
       sx={{
@@ -21,11 +21,10 @@ const RegisterForm = () => {
             
         }}
       >
-        Registration
+        Login
       </Typography>
       <TextInput mw={400} type={'auth'} mt={28} label={'Email'} placeholder={'Input your email'} />
       <TextInput mw={400} type={'auth'} mt={20} label={'Password'} placeholder={'Input your password'} />
-      <TextInput mw={400} type={'auth'} mt={20} label={'Name'} placeholder={'Input your name'} />
       <Button 
         variant='contained'
         sx={{
@@ -35,10 +34,10 @@ const RegisterForm = () => {
             boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.25)',
         }}
       >
-        Register
+        Login
       </Button>
     </Box>
   );
 };
 
-export default RegisterForm;
+export default LoginForm;

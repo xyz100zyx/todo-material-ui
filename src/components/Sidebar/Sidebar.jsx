@@ -3,8 +3,10 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
+import ListItemIcon from "@mui/material/ListItemIcon";
 import { Drawer } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
 function Sidebar(props) {
   const initialProjects = [
@@ -70,9 +72,18 @@ function Sidebar(props) {
                   }}
                 >
                   <ListItemText
-                    sx={{ "& span": { textAlign: "center" } }}
+                    sx={{
+                      "& span": { textAlign: "start", paddingLeft: "15px" },
+                    }}
                     primary={project.name}
                   />
+                  <ListItemIcon
+                    sx={{
+                      cursor: "pointer",
+                    }}
+                  >
+                    <DeleteOutlineIcon />
+                  </ListItemIcon>
                 </ListItemButton>
               </ListItem>
             ))}

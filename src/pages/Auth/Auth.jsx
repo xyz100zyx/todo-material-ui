@@ -1,5 +1,6 @@
 import { Container } from '@mui/material';
 import React from 'react';
+import LoginForm from '../../components/LoginForm/LoginForm';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
 
 const Auth = (props) => {
@@ -13,10 +14,10 @@ const Auth = (props) => {
                 backgroundColor: 'antiquewhite',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
             }}
         >
-            <RegisterForm />
+            {props.action === 'Register' ? <RegisterForm /> : <LoginForm />}
         </Container>
     );
 }
