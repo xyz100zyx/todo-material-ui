@@ -9,6 +9,11 @@ const style = {
 const TextInput = (props) => {
   const [value, setValue] = React.useState(props.type === 'auth' ? '' : props.placeholder);
 
+  const onChangeInput = (text) => {
+      setValue(text);
+      props.action(text);
+    }
+
   return (
     <TextField
       placeholder={props.placeholder}
@@ -16,7 +21,7 @@ const TextInput = (props) => {
       label={props.label}
       value={value}
       variant="standard"
-      onChange={(e)=>setValue(e.target.value)}
+      onChange={(e)=>onChangeInput(e.target.value)}
       sx={{
             minHeight: props.minHeight,
             height: '100%',
