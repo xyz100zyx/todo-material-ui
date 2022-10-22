@@ -10,7 +10,6 @@ const LoginForm = () => {
 
     const onLoginClick = async () => {
         const user = await AuthService.login(email, password).then(data => data.data);
-        console.log(user);
     }
 
   return (
