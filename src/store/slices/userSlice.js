@@ -1,4 +1,17 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import AuthService from "../../services/AuthService";
+
+export const login = createAsyncThunk(
+    'user/login',
+    async function (data, {rejectWithValue}){
+        try{
+            const user = await AuthService.login(data.email, data.password).then(data => data.data);
+            return user
+        }catch(err){
+            return rejectWithValue(err.message);
+        }
+    }
+)
 
 const initialState = {
     user: {},
@@ -9,7 +22,22 @@ const initialState = {
 const userSlice = createSlice({
     name: 'user',
     initialState,
-    reducers:{
-
+    reducers:{},
+    extraReducers: {
+        [login.pending]: (state) => {
+            state.status = 'loading';
+            console.log(state.status)
+        },
+        [login.fulfilled]: (state, action) => {
+            state.user = action.payload;
+            state.status = 'loaded';
+            console.log(state.status)
+        },
+        [login.rejected]: (state, action) => {
+            state.error = action.error;
+            state.status = 'rejected';
+        }
     }
 })
+
+export default userSlice.reducer;

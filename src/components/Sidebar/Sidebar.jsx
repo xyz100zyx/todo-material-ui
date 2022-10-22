@@ -7,18 +7,23 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import { Drawer } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchProjects} from "../../store/slices/projectsSlice";
 
 function Sidebar(props) {
-  const initialProjects = [
-    {
-      name: "Test project",
-    },
-    {
-      name: "Second test project",
-    },
-  ];
 
-  const [projects, setProjects] = React.useState(initialProjects);
+  const dispatch=useDispatch()
+  const user = useSelector(state=>state.user.user);
+  const projects = useSelector(state=>state.projects.projects);
+
+  async function loadProjects(){
+    await dispatch(fetchProjects(user.id))
+  }
+
+  React.useEffect(()=> {
+    loadProjects();
+  }, [])
+
 
   return (
     <>
@@ -64,7 +69,7 @@ function Sidebar(props) {
                   padding: "0px",
                   maxWidth: "254px",
                 }}
-                key={`${project.name}-${index}`}
+                key={`${project.title}-${index}`}
               >
                 <ListItemButton
                   sx={{
@@ -75,7 +80,7 @@ function Sidebar(props) {
                     sx={{
                       "& span": { textAlign: "start", paddingLeft: "15px" },
                     }}
-                    primary={project.name}
+                    primary={project.title}
                   />
                   <ListItemIcon
                     sx={{

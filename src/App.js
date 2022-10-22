@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Main />} />
+        <Route path="/:userId" element={<Main />} />
         <Route path="/auth/register" element={<Auth action={'Register'} />} />
         <Route path="/auth/login" element={<Auth action={'Login'} />} />
       </Routes>

@@ -1,15 +1,21 @@
 import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import TextInput from "../TextInput/TextInput";
-import AuthService from "../../services/AuthService";
+import {login} from "../../store/slices/userSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router";
 
 const LoginForm = () => {
 
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const onLoginClick = async () => {
-        const user = await AuthService.login(email, password).then(data => data.data);
+        let userId;
+        await dispatch(login({email, password})).then(data => {userId = data.payload.id})
+        await navigate(`/${userId}`);
     }
 
   return (
