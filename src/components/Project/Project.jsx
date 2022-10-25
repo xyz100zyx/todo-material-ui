@@ -7,8 +7,15 @@ import { ListItem, ListItemText } from "@mui/material";
 import List from "@mui/material/List";
 import ModalDetailsTask from "../ModalDetailsTask/ModalDetailsTask";
 import ModalAddTask from "../ModalAddTask/ModalAddTask";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveTask } from "../../store/slices/tasksSlice";
+
 
 function Project(props) {
+
+  const dispatch = useDispatch()
+
+  const activeTask = useSelector(state => state.tasks.activeTask);
   const [modalAdd, setModalAdd] = React.useState(false);
   const [modalNew, setModalNew] = React.useState(false);
 
@@ -33,6 +40,8 @@ function Project(props) {
   const [tasks, setTasks] = React.useState(initialTasks);
   const [clickedTask, setClickedTask] = React.useState(null);
 
+  const fetchedTasks = useSelector(state => state.tasks.tasks);
+
   const getPriorityColor = (priority) => {
     switch (priority) {
       case 'High':
@@ -48,17 +57,17 @@ function Project(props) {
   };
 
   const onTaskClick = (task) => {
-    setClickedTask(task);
+    dispatch(setActiveTask(task)) 
     setModalAdd(!modalAdd);
   }
-
+  
   const onAddTaskClick = () => {
     setModalNew(!modalNew)
   }
-
+  
   return (
     <>
-      {modalAdd && <ModalDetailsTask clickedTask={clickedTask} action={setModalAdd} state={modalAdd} />}
+      {modalAdd && <ModalDetailsTask clickedTask={activeTask} action={setModalAdd} state={modalAdd} />}
       {modalNew && <ModalAddTask action={setModalNew} state={modalNew} />}
       <Box
         sx={{
@@ -87,7 +96,7 @@ function Project(props) {
               gap: "20px",
             }}
           >
-            {tasks.map((task, index) => (
+            {fetchedTasks.map((task, index) => (
               <ListItem
                 onClick={() => onTaskClick(task)}
                 sx={{

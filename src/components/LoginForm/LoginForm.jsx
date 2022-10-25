@@ -2,7 +2,7 @@ import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import TextInput from "../TextInput/TextInput";
 import {login} from "../../store/slices/userSlice";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router";
 
 const LoginForm = () => {

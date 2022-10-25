@@ -22,7 +22,7 @@ const style = {
 
 const ModalDetailsTask = (props) => {
 
-  const timeLost = props.clickedTask.timeLost;
+  const timeLost = props.clickedTask.time_to_pass.split(" ");
 
   return (
     <Modal

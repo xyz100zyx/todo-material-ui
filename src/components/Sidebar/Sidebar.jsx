@@ -8,13 +8,20 @@ import { Drawer } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchProjects} from "../../store/slices/projectsSlice";
+import {fetchProjects, setActive} from "../../store/slices/projectsSlice";
+import { getTasks } from "../../store/slices/tasksSlice";
 
 function Sidebar(props) {
 
   const dispatch=useDispatch()
   const user = useSelector(state=>state.user.user);
   const projects = useSelector(state=>state.projects.projects);
+  const tasks = useSelector(state => state.tasks.tasks)
+
+  async function onProjectClick(project){
+    dispatch(setActive(project))
+    await dispatch(getTasks({projectId: project.id, userId: user.id}));
+  }
 
   async function loadProjects(){
     await dispatch(fetchProjects(user.id))
@@ -23,7 +30,6 @@ function Sidebar(props) {
   React.useEffect(()=> {
     loadProjects();
   }, [])
-
 
   return (
     <>
@@ -70,6 +76,7 @@ function Sidebar(props) {
                   maxWidth: "254px",
                 }}
                 key={`${project.title}-${index}`}
+                onClick={() => onProjectClick(project)}
               >
                 <ListItemButton
                   sx={{

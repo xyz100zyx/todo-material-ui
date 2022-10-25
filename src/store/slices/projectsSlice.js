@@ -2,7 +2,7 @@ import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import ProjectService from "../../services/ProjectService";
 
 const initialState = {
-    activeProject: null,
+    activeProject: {},
     projects: [],
     status: null,
     error: null,
@@ -24,7 +24,11 @@ export const fetchProjects = createAsyncThunk(
 const projectsSlice = createSlice({
     name: 'projects',
     initialState,
-    reducers: {},
+    reducers: {
+        setActive: (state, action) => {
+            state.activeProject = action.payload;
+        }
+    },
     extraReducers: {
         [fetchProjects.pending]: (state) => {
             state.status = 'loading';
@@ -40,4 +44,5 @@ const projectsSlice = createSlice({
     }
 })
 
+export const {setActive} = projectsSlice.actions;
 export default projectsSlice.reducer;

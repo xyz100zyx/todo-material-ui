@@ -26,12 +26,10 @@ const userSlice = createSlice({
     extraReducers: {
         [login.pending]: (state) => {
             state.status = 'loading';
-            console.log(state.status)
         },
         [login.fulfilled]: (state, action) => {
             state.user = action.payload;
             state.status = 'loaded';
-            console.log(state.status)
         },
         [login.rejected]: (state, action) => {
             state.error = action.error;
