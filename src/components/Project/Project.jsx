@@ -19,27 +19,6 @@ function Project(props) {
   const [modalAdd, setModalAdd] = React.useState(false);
   const [modalNew, setModalNew] = React.useState(false);
 
-  const initialTasks = [
-    {
-      priority: 'High',
-      timeLost: [21, "January", 2023],
-      description: "sdhfbsjkdfnsdknfsgdfngm,dsdg",
-    },
-    {
-      priority: "Middle",
-      timeLost: [22, "January", 2023],
-      description: "sdhfbsjkdfnsdknfsgdfngm,dsdg",
-    },
-    {
-      priority: "Low",
-      timeLost: [22, "January", 2023],
-      description: "sdhfbsjkdfnsdknfsgdfngm,dsdg",
-    },
-  ];
-
-  const [tasks, setTasks] = React.useState(initialTasks);
-  const [clickedTask, setClickedTask] = React.useState(null);
-
   const fetchedTasks = useSelector(state => state.tasks.tasks);
 
   const getPriorityColor = (priority) => {

@@ -9,6 +9,11 @@ const styleWrapper = {
 const PrioritySelect = (props) => {
   const [priority, setPriority] = React.useState(props.priority);
 
+  const onPriorityChange = (e) => {
+    setPriority(e.target.value);
+    props.action(e.target.value)
+  }
+
   return (
     <FormControl fullWidth sx={styleWrapper}>
       <InputLabel id="demo-simple-select-label">Priority</InputLabel>
@@ -17,7 +22,7 @@ const PrioritySelect = (props) => {
         id="demo-simple-select"
         value={priority.toString()}
         label="Chose a priority"
-        onChange={(e) => setPriority(e.target.value)}
+        onChange={(e) => onPriorityChange(e)}
         sx={{
             
         }}

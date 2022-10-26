@@ -5,6 +5,10 @@ import { Typography } from "@mui/material";
 import TextInput from "../TextInput/TextInput";
 import PrioritySelect from "../PrioritySelect/PrioritySelect";
 import ButtonModal from "../ButtonModal/ButtonModal";
+import { useDispatch, useSelector } from "react-redux";
+import { updateTask } from "../../store/slices/tasksSlice";
+import TaskService from "../../services/TaskService";
+import { useParams } from "react-router";
 
 const style = {
   position: "absolute",
@@ -14,15 +18,32 @@ const style = {
   maxWidth: 722,
   width: '100%',
   bgcolor: "#FFD7A7",
-  border: "2px solid #000",
+  border: "none",
   boxShadow: 24,
   p: 4,
-  border: 'none'
 };
 
 const ModalDetailsTask = (props) => {
 
-  const timeLost = props.clickedTask.time_to_pass.split(" ");
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.user.user);
+  const activeProject = useSelector(state => state.projects.activeProject);
+  const activeTask = useSelector(state => state.tasks.activeTask);
+
+  const [priority, setPriority] = React.useState(props.clickedTask.priority);
+  const [description, setDescription] = React.useState(props.clickedTask.description);
+  const [timeToPass, setTimeToPass] = React.useState(props.clickedTask.time_to_pass);
+
+  const onSaveClick = async () => {
+    try{
+      const newTask = await TaskService.updateTask(user.id, activeProject.id, activeTask.id, description, timeToPass, priority).then(res => res.data);
+      await dispatch(updateTask({priority, description, timeToPass}))
+      props.action(false)
+    }catch(err) {
+      console.log('was en error', err);
+    }
+  }
+
 
   return (
     <Modal
@@ -35,10 +56,10 @@ const ModalDetailsTask = (props) => {
         <Typography id="modal-modal-title" variant="h6" component="h2" sx={{textAlign: 'center'}}>
             Details
         </Typography>
-        <TextInput minHeight={'auto'} label={'Time finish point'} placeholder={`${timeLost[0]} ${timeLost[1]} ${timeLost[2]}`}/>
-        <PrioritySelect priority={props.clickedTask.priority} />
-        <TextInput mt={18} minHeight={'130px'} label={'Task description'} placeholder={props.clickedTask.description}/>
-        <ButtonModal text={'Save'} />
+        <TextInput action={setTimeToPass} minHeight={'auto'} label={'Time finish point'} placeholder={timeToPass}/>
+        <PrioritySelect action={setPriority} priority={props.clickedTask.priority} />
+        <TextInput action={setDescription} mt={18} minHeight={'130px'} label={'Task description'} placeholder={props.clickedTask.description}/>
+        <ButtonModal text={'Save'} action={onSaveClick}/>
         <ButtonModal text={'Done'} />
         <ButtonModal text={'Delete'} />
       </Box>

@@ -27,6 +27,15 @@ const taskSlice = createSlice({
   reducers: {
     setActiveTask: (state, action) => {
         state.activeTask = action.payload;
+    },
+    updateTask: (state, action) => {
+      state.tasks.map(task => {
+        if(task.id === state.activeTask.id){
+          task.description = action.payload.description;
+          task.priority = action.payload.priority;
+          task.time_to_pass = action.payload.timeToPass;
+        }
+      })
     }
   },
   extraReducers: {
@@ -44,5 +53,5 @@ const taskSlice = createSlice({
   },
 });
 
-export const {setActiveTask} = taskSlice.actions;
+export const {setActiveTask, updateTask} = taskSlice.actions;
 export default taskSlice.reducer;

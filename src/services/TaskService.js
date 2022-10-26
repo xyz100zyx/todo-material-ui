@@ -6,6 +6,10 @@ class TaskService{
         return await $api.get(`/${userId}/${projectId}/getAll`);
     }
 
+    static async updateTask(userId, projectId, taskId, description, timeToPass, priority){
+        return await $api.patch(`/${userId}/${projectId}/update`, {taskId, description, timeToPass, priority})
+    }
+
 }
 
 export default TaskService;

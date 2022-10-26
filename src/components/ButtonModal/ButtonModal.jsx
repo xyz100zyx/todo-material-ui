@@ -44,6 +44,7 @@ const ButtonModal = (props) => {
         alignItems: "center",
         margin: '7px 0px'
       }}
+      onClick={props.action}
     >
       {iconController(props.text)}
       <Typography>{props.text}</Typography>
