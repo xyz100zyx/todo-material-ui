@@ -30,6 +30,7 @@ const userSlice = createSlice({
         [login.fulfilled]: (state, action) => {
             state.user = action.payload;
             state.status = 'loaded';
+            localStorage.setItem('access_token', state.user.accessToken);
         },
         [login.rejected]: (state, action) => {
             state.error = action.error;

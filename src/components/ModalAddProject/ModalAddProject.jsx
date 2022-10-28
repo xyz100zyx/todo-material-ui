@@ -7,7 +7,6 @@ import ButtonModal from "../ButtonModal/ButtonModal";
 import {useDispatch, useSelector} from "react-redux";
 import ProjectService from "../../services/ProjectService";
 import {createProject} from "../../store/slices/projectsSlice";
-import project from "../Project/Project";
 
 const style = {
     position: "absolute",
