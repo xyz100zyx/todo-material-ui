@@ -36,6 +36,14 @@ const taskSlice = createSlice({
           task.time_to_pass = action.payload.timeToPass;
         }
       })
+      state.activeTask = {}
+    },
+    createTask: (state, action) => {
+      state.tasks.push(action.payload);
+    },
+    deleteTask: (state, action) => {
+      state.tasks = state.tasks.filter(task => task.id !== action.payload.id)
+      state.activeTask = {}
     }
   },
   extraReducers: {
@@ -53,5 +61,5 @@ const taskSlice = createSlice({
   },
 });
 
-export const {setActiveTask, updateTask} = taskSlice.actions;
+export const {setActiveTask, updateTask, createTask, deleteTask} = taskSlice.actions;
 export default taskSlice.reducer;

@@ -6,7 +6,7 @@ import TextInput from "../TextInput/TextInput";
 import PrioritySelect from "../PrioritySelect/PrioritySelect";
 import ButtonModal from "../ButtonModal/ButtonModal";
 import { useDispatch, useSelector } from "react-redux";
-import { updateTask } from "../../store/slices/tasksSlice";
+import {deleteTask, updateTask} from "../../store/slices/tasksSlice";
 import TaskService from "../../services/TaskService";
 import { useParams } from "react-router";
 
@@ -44,6 +44,15 @@ const ModalDetailsTask = (props) => {
     }
   }
 
+  const onDeleteClick = async () => {
+    try{
+      await TaskService.deleteTask(user.id, activeProject.id, activeTask.id)
+      await dispatch(deleteTask)
+      props.action(false)
+    }catch(err){
+      console.log('was en error', err);
+    }
+  }
 
   return (
     <Modal
@@ -59,9 +68,9 @@ const ModalDetailsTask = (props) => {
         <TextInput action={setTimeToPass} minHeight={'auto'} label={'Time finish point'} placeholder={timeToPass}/>
         <PrioritySelect action={setPriority} priority={props.clickedTask.priority} />
         <TextInput action={setDescription} mt={18} minHeight={'130px'} label={'Task description'} placeholder={props.clickedTask.description}/>
-        <ButtonModal text={'Save'} action={onSaveClick}/>
+        <ButtonModal text={'Save'} action={onSaveClick} />
         <ButtonModal text={'Done'} />
-        <ButtonModal text={'Delete'} />
+        <ButtonModal text={'Delete'} action={onDeleteClick} />
       </Box>
     </Modal>
   );

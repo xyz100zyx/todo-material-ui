@@ -7,15 +7,18 @@ import { ListItem, ListItemText } from "@mui/material";
 import List from "@mui/material/List";
 import ModalDetailsTask from "../ModalDetailsTask/ModalDetailsTask";
 import ModalAddTask from "../ModalAddTask/ModalAddTask";
+import ModalAddProject from "../ModalAddProject/ModalAddProject";
 import { useDispatch, useSelector } from "react-redux";
-import { setActiveTask } from "../../store/slices/tasksSlice";
+import {getTasks, setActiveTask} from "../../store/slices/tasksSlice";
 
 
 function Project(props) {
 
   const dispatch = useDispatch()
 
+  const activeProject = useSelector(state => state.projects.activeProject)
   const activeTask = useSelector(state => state.tasks.activeTask);
+
   const [modalAdd, setModalAdd] = React.useState(false);
   const [modalNew, setModalNew] = React.useState(false);
 
@@ -43,10 +46,15 @@ function Project(props) {
   const onAddTaskClick = () => {
     setModalNew(!modalNew)
   }
+
+  /*React.useEffect(() => {
+    dispatch(getTasks);
+  }, [])*/
   
   return (
     <>
       {modalAdd && <ModalDetailsTask clickedTask={activeTask} action={setModalAdd} state={modalAdd} />}
+      {props.modalProject && <ModalAddProject action={props.actionModelProject} state={props.modalProject} />}
       {modalNew && <ModalAddTask action={setModalNew} state={modalNew} />}
       <Box
         sx={{
@@ -62,7 +70,7 @@ function Project(props) {
             marginTop: "27px",
           }}
         >
-          Test Project
+          {activeProject.title}
         </Typography>
         <Button onClick={()=>onAddTaskClick()} sx={{ marginTop: "50px", padding: "10px 15px" }}>
           Add new task
@@ -84,6 +92,7 @@ function Project(props) {
                   boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.25)",
                   cursor: 'pointer'
                 }}
+                key={task.id}
               >
                 <ListItemText
                   sx={{

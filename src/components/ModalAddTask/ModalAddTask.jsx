@@ -5,6 +5,9 @@ import { Typography } from "@mui/material";
 import TextInput from "../TextInput/TextInput";
 import PrioritySelect from "../PrioritySelect/PrioritySelect";
 import ButtonModal from "../ButtonModal/ButtonModal";
+import {createTask} from "../../store/slices/tasksSlice";
+import TaskService from "../../services/TaskService";
+import {useDispatch, useSelector} from "react-redux";
 
 const style = {
   position: "absolute",
@@ -14,13 +17,28 @@ const style = {
   maxWidth: 722,
   width: "100%",
   bgcolor: "#FFD7A7",
-  border: "2px solid #000",
   boxShadow: 24,
   p: 4,
   border: "none",
 };
 
 const ModalAddTask = (props) => {
+
+  const dispatch = useDispatch();
+
+  const user = useSelector(state => state.user.user);
+  const project = useSelector(state => state.projects.activeProject);
+
+  const [timeToPass, setTimeToPass] = React.useState('');
+  const [description, setDescription] = React.useState('');
+  const [priority, setPriority] = React.useState('');
+
+  const onSaveClick = async () => {
+    const task = await TaskService.createTask(user.id, project.id, description, timeToPass, priority).then(res => res.data);
+    dispatch(createTask(task))
+    props.action(false)
+  }
+
   return (
     <Modal
       open={props.state}
@@ -41,15 +59,17 @@ const ModalAddTask = (props) => {
           minHeight={"auto"}
           label={"Time finish point"}
           placeholder={``}
+          action={setTimeToPass}
         />
-        <PrioritySelect priority={'Chose the priority'} />
+        <PrioritySelect action={setPriority} priority={'Chose the priority'} />
         <TextInput
           mt={18}
           minHeight={"130px"}
           label={"Task description"}
           placeholder={''}
+          action={setDescription}
         />
-        <ButtonModal text={"Save"} />
+        <ButtonModal action={onSaveClick} text={"Save"} />
       </Box>
     </Modal>
   );

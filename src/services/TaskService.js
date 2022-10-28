@@ -10,6 +10,14 @@ class TaskService{
         return await $api.patch(`/${userId}/${projectId}/update`, {taskId, description, timeToPass, priority})
     }
 
+    static async createTask(userId, projectId, description, timeToPass, priority){
+        return await $api.post(`/${userId}/${projectId}/create`, {description, timeToPass, priority})
+    }
+
+    static async deleteTask(userId, projectId, taskId){
+        return await $api.delete(`/${userId}/${projectId}/delete`, {data: {taskId}})
+    }
+
 }
 
 export default TaskService;

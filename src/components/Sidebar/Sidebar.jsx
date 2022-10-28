@@ -8,8 +8,10 @@ import { Drawer } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchProjects, setActive} from "../../store/slices/projectsSlice";
+import {clearActive, deleteProject, fetchProjects, setActive} from "../../store/slices/projectsSlice";
 import { getTasks } from "../../store/slices/tasksSlice";
+import Button from "@mui/material/Button";
+import ProjectService from "../../services/ProjectService";
 
 function Sidebar(props) {
 
@@ -25,6 +27,12 @@ function Sidebar(props) {
 
   async function loadProjects(){
     await dispatch(fetchProjects(user.id))
+  }
+
+  const onDeleteClick = async (project) => {
+    await ProjectService.delete(user.id, project.id);
+    await dispatch(deleteProject(project))
+    await dispatch(clearActive())
   }
 
   React.useEffect(()=> {
@@ -94,12 +102,15 @@ function Sidebar(props) {
                       cursor: "pointer",
                     }}
                   >
-                    <DeleteOutlineIcon />
+                    <DeleteOutlineIcon onClick={() => onDeleteClick(project)} />
                   </ListItemIcon>
                 </ListItemButton>
               </ListItem>
             ))}
           </List>
+          <Button onClick={() => props.actionModelProject(true)} sx={{ padding: "10px 15px", maxWidth: '170px', margin: '10px auto 0 auto' }}>
+            Add new project
+          </Button>
         </Drawer>
       )}
     </>

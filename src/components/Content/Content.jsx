@@ -5,6 +5,9 @@ import Divider from "@mui/material/Divider";
 import Project from "../Project/Project";
 
 function Content(props) {
+
+    const [modalProject, setModalProject] = React.useState(false);
+
     return (
         <Box
             sx={{
@@ -13,9 +16,9 @@ function Content(props) {
                 width: '100%',
             }}
         >
-            <Sidebar state={props.state}/>
+            <Sidebar actionModelProject={setModalProject} state={props.state}/>
             {props.state && <Divider sx={{width: '1px', marginTop: '5px', backgroundColor: '#000', opacity: 0.2}}/>}
-            <Project />
+            <Project actionModelProject={setModalProject} modalProject={modalProject}/>
         </Box>
     );
 }
