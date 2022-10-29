@@ -1,9 +1,14 @@
 import { Container } from '@mui/material';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import LoginForm from '../../components/LoginForm/LoginForm';
 import RegisterForm from '../../components/RegisterForm/RegisterForm';
+import Loader from '../../components/ui/Loader';
 
 const Auth = (props) => {
+
+    const userStatus = useSelector(state => state.user.status);
+    
     return (
         <Container
             sx={{
@@ -18,6 +23,7 @@ const Auth = (props) => {
             }}
         >
             {props.action === 'Register' ? <RegisterForm /> : <LoginForm />}
+            {userStatus === 'loading' && <Loader />}
         </Container>
     );
 }

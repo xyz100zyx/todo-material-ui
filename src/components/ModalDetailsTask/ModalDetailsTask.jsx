@@ -8,7 +8,6 @@ import ButtonModal from "../ButtonModal/ButtonModal";
 import { useDispatch, useSelector } from "react-redux";
 import {deleteTask, updateTask} from "../../store/slices/tasksSlice";
 import TaskService from "../../services/TaskService";
-import { useParams } from "react-router";
 
 const style = {
   position: "absolute",

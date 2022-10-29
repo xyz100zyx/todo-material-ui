@@ -2,6 +2,8 @@ import {Box, Button, Typography} from "@mui/material";
 import React from "react";
 import TextInput from "../TextInput/TextInput";
 import AuthService from '../../services/AuthService';
+import { chooseStyle } from '../../utils/styleChoiser';
+import { useSelector } from "react-redux";
 
 const RegisterForm = () => {
 
@@ -9,9 +11,10 @@ const RegisterForm = () => {
     const [password, setPassword] = React.useState('');
     const [name, setName] = React.useState('');
 
+    const userStatus = useSelector(state => state.user.status);
+
     const onRegisterClick = async () => {
         await AuthService.register(email, password, name);
-        console.log('success')
     }
 
     return (
@@ -22,6 +25,7 @@ const RegisterForm = () => {
                 width: '100%',
                 padding: '50px 25px',
                 boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.25)',
+                display: chooseStyle(userStatus, null, 'block', 'none')
             }}
         >
             <Typography

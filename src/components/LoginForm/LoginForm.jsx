@@ -2,8 +2,9 @@ import { Box, Button, Typography } from "@mui/material";
 import React from "react";
 import TextInput from "../TextInput/TextInput";
 import {login} from "../../store/slices/userSlice";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router";
+import { chooseStyle } from '../../utils/styleChoiser';
 
 const LoginForm = () => {
 
@@ -11,6 +12,8 @@ const LoginForm = () => {
     const [password, setPassword] = React.useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const userStatus = useSelector(state => state.user.status);
 
     const onLoginClick = async () => {
         let userId;
@@ -26,6 +29,7 @@ const LoginForm = () => {
         width: '100%',
         padding: '50px 25px',
         boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.25)',
+        display: chooseStyle(userStatus, null, 'block', 'none')
       }}
     >
       <Typography
